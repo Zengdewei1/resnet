@@ -48,11 +48,11 @@ def main():
         if not os.path.exists(directory):
             os.mkdir(directory)
     if dataset_type=='mnist':
-        train_loader=DataLoader(datasets.MNIST(root='../data/MNIST',train=True,download=True,transform=transforms.Compose([transforms.ToTensor()])),batch_size=batch_size,shuffle=True)
-        test_loader=DataLoader(datasets.MNIST(root='../data/MNIST',train=False,transform=transforms.Compose([transforms.ToTensor()])),batch_size=batch_size)
+        train_loader=DataLoader(datasets.MNIST(root='../data/MNIST',train=True,download=True,transform=transforms.Compose([transforms.RandomCrop(32, padding=4),transforms.RandomHorizontalFlip(),transforms.ToTensor(),transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])),batch_size=batch_size,shuffle=True)
+        test_loader=DataLoader(datasets.MNIST(root='../data/MNIST',train=False,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])),batch_size=batch_size)
     elif dataset_type=='cifar10':
-        train_loader=DataLoader(datasets.CIFAR10(root='../data/CIFAR-10',train=True,download=True,transform=transforms.Compose([transforms.ToTensor()])),batch_size=batch_size,shuffle=True)
-        test_loader=DataLoader(datasets.CIFAR10(root='../data/CIFAR-10',train=False,transform=transforms.Compose([transforms.ToTensor()])),batch_size=batch_size)
+        train_loader=DataLoader(datasets.CIFAR10(root='../data/CIFAR-10',train=True,download=True,transform=transforms.Compose([transforms.RandomCrop(32, padding=4),transforms.RandomHorizontalFlip(),transforms.ToTensor(),transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])),batch_size=batch_size,shuffle=True)
+        test_loader=DataLoader(datasets.CIFAR10(root='../data/CIFAR-10',train=False,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])),batch_size=batch_size)
     else:
         raise ValueError('Wrong!')
         
